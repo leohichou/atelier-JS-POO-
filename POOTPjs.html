@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POO TP</title>
+</head>
+
+<body>
+    <h1>POO TP</h1>
+
+
+</body>
+<script>
+
+
+    //Exercice 1:
+    function Voiture(annee, model, marque, type, carburant) {
+        this.annee = annee;
+        this.model = model;
+        this.marque = marque;
+        this.type = type;
+        this.carburant = carburant;
+
+
+    }
+    Voiture.prototype.Getannee = function () {
+        return this.annee;
+    }
+
+
+    let voitures = [
+        new Voiture(2020, "Model SS", "Tesla", "Sedan", "Electrique"),
+        new Voiture(1968, "Mustang", "Ford", "Coupe", "Essence"),
+        new Voiture(2019, "i30", "Hyundai", "Hatchback", "Diesel")
+    ];
+
+
+
+    //console.log(voitures);
+
+
+    function Hyundai(model, marque, annee, type, carburant, serie, hybride) {
+        Voiture.call(this, model, marque, annee, type, carburant);
+        this.serie = serie;
+        this.hybride = hybride;
+    }
+
+
+    //Hyundai function alarme + Object creation
+    Hyundai.prototype = Object.create(Voiture.prototype);
+    Hyundai.prototype.constructor = Hyundai;
+    Hyundai.prototype.alarmer = function() {
+        console.log("Alarme de la Hyundai activée!");
+    };
+  
+
+    function Ford(model, marque, annee, type, carburant, options) {
+        Voiture.call(this, model, marque, annee, type, carburant);
+        this.options = options;
+    }
+
+    // Ford Object creation
+    Ford.prototype = Object.create(Voiture.prototype);
+    Ford.prototype.constructor = Ford;
+   
+
+
+    voitures.sort(function (a, b) {
+        return a.Getannee() - b.Getannee();
+    });
+
+    voitures.forEach(function (voitures) {
+        console.log(`${voitures.marque} ${voitures.model} - Année: ${voitures.Getannee()}`);
+    });
+
+
+
+
+
+    // Exercice 2:
+
+    let Etudiant = {
+        nom: "Hich",
+        prenom: "Mohamed",
+        age: 22,
+        cne: "K234ne",
+
+        étudier: (matier) => {
+            return Etudiant.nom + "fait l 'etude de  " + matier;
+
+        }
+
+    }
+
+
+
+    let Professeur = {
+        nom: "IDRISSI",
+        age: 40,
+        cin: "KT1234",
+        enseigner: (Groupe) => {
+
+            return Professeur.nom + " enseigne le groupe " + Groupe;
+
+        }
+    }
+
+    let etudiants = [
+        {
+            nom: "Hich",
+            prenom: "Mohamed",
+            age: 22,
+            cne: "K234ne"
+        },
+        {
+            nom: "Hich",
+            prenom: "Omar",
+            age: 22,
+            cne: "K234ne"
+        },
+        {
+            nom: "HAssani",
+            prenom: "Omar",
+            age: 22,
+            cne: "K234ne"
+        },
+        {
+            nom: "Akil",
+            prenom: "Mohamed",
+            age: 22,
+            cne: "K234ne"
+        },
+
+
+
+    ];
+
+    console.log(etudiants);
+    etudiants.sort((a, b) => {
+        // Comparaison par nom
+        if (a.nom.toLowerCase() < b.nom.toLowerCase()) return -1;
+        if (a.nom.toLowerCase() > b.nom.toLowerCase()) return 1;
+        // Si les noms sont identiques, comparer par prénom
+        if (a.prenom.toLowerCase() < b.prenom.toLowerCase()) return -1;
+        if (a.prenom.toLowerCase() > b.prenom.toLowerCase()) return 1;
+
+        return 0; // Les noms et les prénoms sont identiques
+    });
+
+
+    etudiants.forEach(e => {
+        console.log(`${e.nom} ${e.prenom}`);
+    });
+
+
+    //Exercice 3:
+
+    class Vecteur2d {
+        x;
+        y;
+
+        constructor(x = 0, y = 0) {
+            this.x = x;
+            this.y = y;
+
+        }
+
+        afficher() {
+
+            console.log("X = " + this.x + " Y= " + this.y);;
+        }
+
+        Additioner(vecteur) {
+            this.x += vecteur.x;
+            this.y += vecteur.y;
+        }
+    }
+
+    vect1 = new Vecteur2d(14, 15);
+    vect2 = new Vecteur2d(12, 13)
+    vect2.Additioner(vect1);
+    vect2.afficher();
+
+
+    class Rectangle {
+        nom = "Rectangle";
+        longuer;
+        largeur;
+
+        constructor(nom, longuer, largeur) {
+
+            this.longuer = longuer;
+            this.largeur = largeur;
+            this.nom = nom;
+        }
+
+        afficher() {
+
+            console.log(this.nom + " avec longuer: " + this.longuer + " et Largeur : " + this.largeur);
+        }
+
+        surface() {
+
+            let surface = this.longuer * this.largeur;
+            console.log("La surface est :" + surface);
+        }
+    }
+
+    Rect1 = new Rectangle(12, 4);
+    Rect1.afficher();
+    Rect1.surface();
+
+    class Carré extends Rectangle {
+
+        constructor(nom = "carre", longuer = 5) {
+            super(nom, longuer, longuer);
+
+        }
+
+
+
+    }
+    Carré1 = new Carré();
+    Carré1.afficher();
+
+
+
+    class Point {
+         x;
+        y;
+
+        constructor(x = 0.0, y = 0.0) {
+            this.x = x;
+            this.y = y;
+
+        }
+        afficher() {
+            console.log( "X=  " + this.x + " et Y : " + this.y);
+        }
+
+    }
+    Point1= new Point();
+    Point1.afficher();
+
+class Segement {
+    orig;
+    ext;
+
+
+constructor(orig1,orig2,ext1,ext2){
+    this.orig=new Point(orig1,orig2);
+    this.ext=new Point(ext1,ext2);
+}
+}
+Segement1= new Segement(1,2,3,5);
+console.log( Segement1);0
+
+</script>
+
+</html>
